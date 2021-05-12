@@ -1,7 +1,8 @@
 const { response, request } = require('express');
+const Usuario = require('../models/usuario')
 
 const usuariosGet = (req = request, res = response) => {
-    const { q, nombre, apikey } = req.query;
+    const { q, nombre = 'No name', apikey } = req.query;
     res.json({
         msg: 'get API - controlador',
         q,
@@ -12,10 +13,11 @@ const usuariosGet = (req = request, res = response) => {
 
 const usuariosPost = (req, res = response) => {
     const body = req.body;
+    const usuario = new Usuario(body);
 
     res.json({
         msg: 'post API - controlador',
-        body
+        usuario
     });
 }
 
