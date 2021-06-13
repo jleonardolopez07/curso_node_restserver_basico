@@ -83,7 +83,7 @@ const usuariosDelete = async(req, res = response) => {
     const usuarioAutenticado = req.usuario;
     res.json({
         usuario,
-
+        msg: 'para ver si llega aqui',
         usuarioAutenticado
     });
 }
