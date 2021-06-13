@@ -74,18 +74,27 @@ const usuariosDelete = async(req, res = response) => {
     const { id } = req.params;
 
 
+    try {
+        // Fisicamente lo borramos:
+        // const usuario = await Usuario.findByIdAndDelete(id);
 
-    // Fisicamente lo borramos:
-    // const usuario = await Usuario.findByIdAndDelete(id);
+        // Hoy en dia no se borran los usuarios sino se coloca el estado False
+        const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+        const usuarioAutenticado = req.usuario;
+        res.json({
+            usuario,
+            msg: 'para ver si llega aqui',
+            usuarioAutenticado
+        });
+    } catch (error) {
+        res.status(400).json({
+            msg: error
+        })
+    }
 
-    // Hoy en dia no se borran los usuarios sino se coloca el estado False
-    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
-    const usuarioAutenticado = req.usuario;
-    res.json({
-        usuario,
-        msg: 'para ver si llega aqui',
-        usuarioAutenticado
-    });
+
+
+
 }
 
 const usuariosPath = (req, res = response) => {
