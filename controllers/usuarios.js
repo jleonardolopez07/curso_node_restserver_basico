@@ -25,6 +25,7 @@ const usuariosGet = async(req = request, res = response) => {
         .skip(Number(desde))
     ])
 
+
     res.json({
         total,
         usuarios
@@ -72,14 +73,18 @@ const usuariosPut = async(req, res = response) => {
 const usuariosDelete = async(req, res = response) => {
     const { id } = req.params;
 
+
+
     // Fisicamente lo borramos:
     // const usuario = await Usuario.findByIdAndDelete(id);
 
     // Hoy en dia no se borran los usuarios sino se coloca el estado False
     const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
-
+    const usuarioAutenticado = req.usuario;
     res.json({
-        usuario
+        usuario,
+
+        usuarioAutenticado
     });
 }
 
